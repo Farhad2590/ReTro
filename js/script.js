@@ -1,11 +1,11 @@
-const loadPost = async() => {
+const loadAllPost = async() => {
     const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts')
     const data = await res.json()
     const post = data;
-    console.log(post.posts);
+    // console.log(post.posts);
     const postContainer = post.posts;
     postContainer.forEach(element => {
-        console.log(element);
+        // console.log(element);
 
         const divContainer = document.getElementById('post-container')
         // divContainer.textContent =''
@@ -49,5 +49,46 @@ const loadPost = async() => {
         divContainer.appendChild(div)
     });
 }
+const loadLatestPost =async () =>{
+    const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts')
+    const data = await res.json()
+    const post = data;
+    console.log(post);
 
-loadPost()
+    post.forEach(posts => {
+        console.log(posts);
+
+        const divContainer = document.getElementById('Latest-Post-Container')
+        // divContainer.textContent =''
+
+        const div = document.createElement('div');
+        div.innerHTML = `
+        <div class="card bg-base-100 shadow-xl">
+                    <figure class="px-5 pt-10">
+                        <img src="${posts.cover_image}" />
+                    </figure>
+                    <div class="card-body">
+                        <div class="flex gap-3">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <p>${posts.author.posted_date}</p>
+                        </div>
+
+                        <h2 class="text-lg font-bold">${posts.title}
+                        </h2>
+                        <p>${posts.description}</p>
+                            <div class="flex gap-2 items-center">
+                                <img class="w-14 rounded-full" src="${posts.profile_image}" alt="" srcset="">
+                                <div>
+                                    <p class="text-base	">${posts.author.name}</p>
+                                    <p class="text-sm	">${posts.author.designation}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        `
+        divContainer.appendChild(div)
+    })
+} 
+loadAllPost()
+loadLatestPost()
