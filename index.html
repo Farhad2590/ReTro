@@ -1,11 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- daisy links  -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- font awesome links  -->
+    <script src="https://kit.fontawesome.com/eae2dd41b9.js" crossorigin="anonymous"></script>
+
+    <!-- google fonts  -->
+
 </head>
+
 <body>
-    
+    <header class="container mx-auto w-[90%]">
+        <div class="navbar bg-base-100">
+            <div class="flex-1">
+                <a class="btn btn-ghost text-xl">ReTro</a>
+            </div>
+            <div class="flex-none gap-3">
+                <div class="px-3 py-2 bg-slate-200 border-[1px] border-gray-400 rounded-full">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="px-3 py-2 bg-slate-200 border-[1px] border-gray-400 rounded-full">
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+                <div class="px-3 py-2 bg-slate-200 border-[1px] border-gray-400 rounded-full">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <div class="px-3 py-2 bg-slate-200 border-[1px] border-gray-400 rounded-full">
+                    <i class="fa-solid fa-flag"></i>
+                </div>
+                <div class="pl-3">
+                    <button class="btn btn-primary bg-[#797dfc] text-white border-none rounded-3xl">Sign in</button>
+                </div>
+
+            </div>
+        </div>
+        <section class="bg-[#12132d] bg-[url(images/bgbanner.png)]  bg-no-repeat rounded-2xl">
+            <div class="flex justify-between px-20 py-24">
+                <div class="flex flex-col gap-3">
+                    <h1 class="text-4xl text-white font-bold">
+                        Welcome to the <br><span
+                            class="bg-gradient-to-r text-transparent bg-clip-text from-indigo-400 to-indigo-700">ReTro</span>
+                        Forum
+                    </h1>
+                    <p class="text-white">
+                        Share your favorite opinion and win and wp <br> forum coffee mug!
+                    </p>
+                    <label class="input input-bordered rounded-3xl flex items-center gap-2">
+                        <input type="text" class="grow" placeholder="Search" />
+                        <button class="btn btn-primary bg-[#797dfc] text-white border-none rounded-3xl my-2">Sign
+                            in</button>
+                    </label>
+
+
+                </div>
+                <div class="bg-white p-10 rounded-2xl flex gap-8 list-none">
+                    <div class="flex flex-col gap-3">
+                        <li>Registered Users</li>
+                        <li>Forum</li>
+                        <li>Topics</li>
+                        <li>Replies</li>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <li>01</li>
+                        <li>05</li>
+                        <li>01</li>
+                        <li>01</li>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main class="container mx-auto w-[90%]">
+        <section class="mt-20">
+            <div class="flex flex-col items-center mb-10">
+                <h1 class="text-3xl">Let’s Discuss</h1>
+                <div class="w-[650px] text-center">
+                    <p>Yes, you can run unit tests and view the results directly within the app. The integrated testing
+                        features allow for a streamlined .</p>
+                </div>
+            </div>
+            <section class="flex gap-5">
+                <div id="post-container" class="flex flex-col gap-5">
+
+                </div>
+                <div class="flex  bg-gray-200 px-5 py-10 rounded-2xl gap-5">
+                    <div class="flex gap-8 ">
+                        <h1 class="text-xl">Title</h1>
+                        <div class="flex gap-2">
+                            <i class="fa-solid fa-check-double" style="color: #07bb76;"></i>
+                            <p>Mark as read</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="./js/script.js"></script>
 </body>
+
 </html>
