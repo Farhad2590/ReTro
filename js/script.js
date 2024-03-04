@@ -60,7 +60,7 @@ function handleClick(postTitle,postView) {
 
     const title = document.createElement('div');
     title.innerHTML = `
-    <div class="mb-5">
+    <div class="bg-white p-2 rounded-lg">
         <h1 class="text-base">${postTitle}</h1>
         <div class="flex gap-3 items-center">
             <i class="fa-regular fa-eye"></i>
