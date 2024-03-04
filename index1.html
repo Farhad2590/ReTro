@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- daisy links  -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- font awesome links  -->
+    <script src="https://kit.fontawesome.com/eae2dd41b9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="navbar bg-base-100 flex flex-col items-center sm:flex-row sm:justify-between">
+        <div class="flex-1 mb-3 sm:mb-0">
+            <a class="btn btn-ghost text-xl">ReTro</a>
+        </div>
+        <div class="flex flex-wrap items-center sm:flex-nowrap gap-3">
+            <div class="px-3 py-2 bg-slate-200 border-[1px] border-gray-400 rounded-full tooltip" data-tip="hello">
+                <i class="fa-solid fa-house"></i>
+            </div>
+            <div class="px-3 py-2 bg-slate-200 border-[1px] border-gray-400 rounded-full tooltip" data-tip="hello">
+                <i class="fa-solid fa-pen"></i>
+            </div>
+            <div class="px-3 py-2 bg-slate-200 border-[1px] border-gray-400 rounded-full tooltip" data-tip="hello">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <div class="px-3 py-2 bg-slate-200 border-[1px] border-gray-400 rounded-full tooltip" data-tip="hello">
+                <i class="fa-solid fa-flag"></i>
+            </div>
+        </div>
+        <div class="pl-3">
+            <button class="btn btn-primary bg-[#797dfc] text-white border-none rounded-3xl">Sign in</button>
+        </div>
+    </div>
+    <section class="bg-[#12132d] bg-[url(images/bgbanner.png)] bg-no-repeat bg-cover bg-center rounded-2xl py-12 sm:py-24 px-4 sm:px-6 lg:px-20">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="md:w-1/2">
+                <h1 class="text-2xl sm:text-4xl text-white font-bold mb-4">
+                    Welcome to the <br><span class="bg-gradient-to-r text-transparent bg-clip-text from-indigo-400 to-indigo-700">ReTro</span> Forum
+                </h1>
+                <p class="text-white mb-4">
+                    Share your favorite opinion and win and wp <br> forum coffee mug!
+                </p>
+                <label class="input input-bordered rounded-3xl flex items-center gap-2">
+                    <input id="searchText" type="text" class="grow" placeholder="Search" />
+                    <button onclick="handleSearch()" class="btn btn-primary bg-[#797dfc] text-white border-none rounded-3xl">Sign in</button>
+                </label>
+            </div>
+            <div class="md:w-1/2 mt-4 md:mt-0">
+                <div class="bg-white p-6 rounded-2xl flex gap-8">
+                    <div class="flex flex-col gap-3">
+                        <span class="text-white">Registered Users</span>
+                        <span class="text-white">Forum</span>
+                        <span class="text-white">Topics</span>
+                        <span class="text-white">Replies</span>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <span class="text-white">01</span>
+                        <span class="text-white">05</span>
+                        <span class="text-white">01</span>
+                        <span class="text-white">01</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+</body>
+</html>

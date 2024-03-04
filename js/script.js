@@ -7,57 +7,49 @@ const loadAllPosts = async () => {
 }
 
 const displayPost = posts =>{
+    const divContainer = document.getElementById('post-container')
+    divContainer.textContent =''
     posts.forEach(element => {
-        // console.log(element);
-       
-        const divContainer = document.getElementById('post-container')
-        // const titleDiv = document.getElementById('title-container')
-        // divContainer.textContent =''
-       
 
         const div = document.createElement('div');
         div.innerHTML = `
-        <div class=" flex bg-gray-200 px-5 py-10 rounded-2xl gap-5">
+        <div class="flex gap-3 bg-gray-200 px-4 py-6 rounded-lg mb-4 ">
                         <div class="indicator">
-                            <span class="indicator-item badge badge-secondary ${element.isActive ? 'bg-green-700' : 'bg-red-700'}  border-none" ></span>
-                            <div class="grid w-24 h-24 bg-base-300 place-items-center">
-                                <img class="w-24 rounded-md" src="${element.image}" alt="" srcset="">
-                            </div>
-                          </div>
-                        <div class="flex flex-col gap-3 ">
-                            <div class="flex gap-5">
-                                <p> #${element.category}</p>
-                                <p>Author : ${element.author.name}</p>
-                            </div>
-                            <div class="flex flex-col gap-5">
-                                <div class="flex flex-col gap-3">
-                                    <h1 class="text-xl">${element.title}</h1>
-                                    <p>${element.description}</p>
-                                </div>
-                                <div class="border-dashed border-[2px]"></div>
-                                <div class="flex justify-between">
-                                    <div class="flex gap-5 justify-start">
-                                        <div class="flex gap-3 items-center">
-                                            <i class="fa-regular fa-message"></i>
-                                            <p>${element.comment_count}</p>
-                                        </div>
-                                        <div class="flex gap-3 items-center">
-                                            <i class="fa-regular fa-eye"></i>
-                                            <p>${element.view_count}</p>
-                                        </div>
-                                        <div class="flex gap-3 items-center">
-                                            <i class="fa-regular fa-clock"></i>
-                                            <p>${element.posted_time} min</p>
-                                        </div>
-                                    </div>
-                                    <div onclick="handleClick('${element.title}', ${element.view_count})" id="btn" class="justify-end">
-                                        <img src="./images/email_1.png" alt="" srcset="">
-                                    </div>
-                                </div>
+                            <span class="indicator-item badge badge-secondary ${element.isActive ? 'bg-green-700' : 'bg-red-700'} border-none"></span>
+                            <div class="grid w-16 h-16 sm:w-24 sm:h-24 bg-base-300 place-items-center">
+                                <img class="w-16 sm:w-24 rounded-md" src="${element.image}" alt="" srcset="">
                             </div>
                         </div>
+                        <div class="mt-4">
+                            <div class="flex justify-between items-center">
+                                <p class="text-sm">#${element.category}</p>
+                                <p class="text-sm">Author: ${element.author.name}</p>
+                            </div>
+                            <div class="mt-2">
+                                <h1 class="text-lg sm:text-xl">${element.title}</h1>
+                                <p class="text-sm">${element.description}</p>
+                            </div>
+                            <div class="border-t border-dashed mt-2 pt-2 flex justify-between">
+                                <div class="flex gap-3 items-center">
+                                    <i class="fa-regular fa-message"></i>
+                                    <p class="text-sm">${element.comment_count}</p>
+                                </div>
+                                <div class="flex gap-3 items-center">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <p class="text-sm">${element.view_count}</p>
+                                </div>
+                                <div class="flex gap-3 items-center">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <p class="text-sm">${element.posted_time} min</p>
+                                </div>
+                                <div onclick="handleClick('${element.title}', ${element.view_count})" class="mt-4 text-right">
+                                <img class="w-6 h-6" src="./images/email_1.png" alt="">
+                            </div>
+                            </div>
+                            
+                        </div>
                     </div>
-        
+
         `
         divContainer.appendChild(div);
     });
@@ -68,27 +60,65 @@ function handleClick(postTitle,postView) {
 
     const title = document.createElement('div');
     title.innerHTML = `
-
+    <div class="mb-5">
         <h1 class="text-base">${postTitle}</h1>
-                        <div class="flex gap-3 items-center">
-                            <i class="fa-regular fa-eye"></i>
-                            <p>${postView}</p>
-                        </div>
+        <div class="flex gap-3 items-center">
+            <i class="fa-regular fa-eye"></i>
+            <p>${postView}</p>
+        </div>
+    </div>
+        
         `
-            titleDiv.appendChild(title);
+        title.style.marginBottom = '20px';
+        titleDiv.appendChild(title);
 }
 
+// const handleSearch = async () => {
+//     const searchField = document.getElementById('searchText');
+//     const searchText = searchField.value.trim().toLowerCase();
+
+//     if (!searchText) return;
+
+//     const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
+//     const data = await res.json();
+//     if(data.length <= 0){
+//         displayPost(data.posts); 
+//     }
+//     else{
+
+//     }
+   
+//     console.log(data);
+// };
 const handleSearch = async () => {
     const searchField = document.getElementById('searchText');
     const searchText = searchField.value.trim().toLowerCase();
 
     if (!searchText) return;
 
-    const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
-    const data = await res.json();
-    loadAllPost(data);
-    console.log(data);
+    const loaderSpinner = document.getElementById('loader-spinner');
+    loaderSpinner.classList.remove('hidden'); // Show loader
+
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
+        const data = await res.json();
+
+        if (data.posts && data.posts.length > 0) {
+            displayPost(data.posts);
+        } else {
+            
+        }
+
+        console.log(data);
+    } catch (error) {
+       
+        console.error('Error fetching data:', error);
+    } finally {
+        loaderSpinner.classList.add('hidden'); 
+    }
 };
+
+
 
 const loadLatestPost = async () => {
     const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts')
@@ -111,7 +141,7 @@ const loadLatestPost = async () => {
                     <div class="card-body">
                         <div class="flex gap-3">
                             <i class="fa-solid fa-calendar-days"></i>
-                            <p>${posts.author.posted_date}</p>
+                            <p>${posts.author.posted_date ? posts.author.posted_date : 'No publish date'}</p>
                         </div>
 
                         <h2 class="text-lg font-bold">${posts.title}
@@ -121,7 +151,7 @@ const loadLatestPost = async () => {
                                 <img class="w-14 rounded-full" src="${posts.profile_image}" alt="" srcset="">
                                 <div>
                                     <p class="text-base	">${posts.author.name}</p>
-                                    <p class="text-sm	">${posts.author.designation}</p>
+                                    <p class="text-sm	">${posts.author.designation ? posts.author.designation : 'Unknown'}</p>
                                 </div>
                             </div>
                         </div>
@@ -129,8 +159,6 @@ const loadLatestPost = async () => {
                 </div>
         `
         divContainer.appendChild(div)
-
-
     })
 }
 loadAllPosts()
