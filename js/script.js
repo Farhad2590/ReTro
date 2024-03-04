@@ -5,18 +5,21 @@ const loadAllPost = async() => {
     // console.log(post.posts);
     const postContainer = post.posts;
     postContainer.forEach(element => {
-        // console.log(element);
+        console.log(element);
 
         const divContainer = document.getElementById('post-container')
+        const titleDiv = document.getElementById('title-container')
         // divContainer.textContent =''
 
         const div = document.createElement('div');
         div.innerHTML = `
-        
         <div class=" flex bg-gray-200 px-5 py-10 rounded-2xl gap-5">
-                        <div>
-                            <img class="w-14 rounded-md" src="${element.image}" alt="" srcset="">
-                        </div>
+                        <div class="indicator">
+                            <span class="indicator-item badge badge-secondary ${element.isActive ? 'bg-green-700' : 'bg-red-700'}  border-none" ></span>
+                            <div class="grid w-24 h-24 bg-base-300 place-items-center">
+                                <img class="w-24 rounded-md" src="${element.image}" alt="" srcset="">
+                            </div>
+                          </div>
                         <div class="flex flex-col gap-3 ">
                             <div class="flex gap-5">
                                 <p> #${element.category}</p>
@@ -28,27 +31,69 @@ const loadAllPost = async() => {
                                     <p>${element.description}</p>
                                 </div>
                                 <div class="border-dashed border-[2px]"></div>
-                                <div class="flex gap-5">
-                                    <div class="flex gap-3 items-center">
-                                        <i class="fa-regular fa-message"></i>
-                                        <p>${element.comment_count}</p>
+                                <div class="flex justify-between">
+                                    <div class="flex gap-5 justify-start">
+                                        <div class="flex gap-3 items-center">
+                                            <i class="fa-regular fa-message"></i>
+                                            <p>${element.comment_count}</p>
+                                        </div>
+                                        <div class="flex gap-3 items-center">
+                                            <i class="fa-regular fa-eye"></i>
+                                            <p>${element.view_count}</p>
+                                        </div>
+                                        <div class="flex gap-3 items-center">
+                                            <i class="fa-regular fa-clock"></i>
+                                            <p>${element.posted_time} min</p>
+                                        </div>
                                     </div>
-                                    <div class="flex gap-3 items-center">
-                                        <i class="fa-regular fa-eye"></i>
-                                        <p>${element.view_count}</p>
-                                    </div>
-                                    <div class="flex gap-3 items-center">
-                                        <i class="fa-regular fa-clock"></i>
-                                        <p>${element.posted_time} min</p>
+                                    <div id="btn" class="justify-end">
+                                        <img src="./images/email_1.png" alt="" srcset="">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+        
         `
-        divContainer.appendChild(div)
+        divContainer.appendChild(div);
+        const btn = div.querySelector('#btn');
+        btn.addEventListener('click', () => {
+           console.log('clicked');
+
+           const title = document.createElement('div');
+        div.innerHTML = `
+
+        <h1 class="text-base">${element.title}</h1>
+                        <div class="flex gap-3 items-center">
+                            <i class="fa-regular fa-eye"></i>
+                            <p>${element.view_count}</p>
+                        </div>
+        `
+        titleDiv.appendChild(title);
+        });
+
+
     });
+
+
 }
+
+const handleSearch = async () => {
+    const searchField = document.getElementById('searchText');
+    const searchText = searchField.value.trim().toLowerCase();
+
+    if (!searchText) return;
+
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
+        const data = await res.json();
+        loadAllPost(data); // Display filtered posts
+        console.log(data);
+    } catch (error) {
+        console.error('Error searching posts:', error);
+    }
+};
+
 const loadLatestPost =async () =>{
     const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts')
     const data = await res.json()
@@ -88,6 +133,8 @@ const loadLatestPost =async () =>{
                 </div>
         `
         divContainer.appendChild(div)
+
+
     })
 } 
 loadAllPost()
