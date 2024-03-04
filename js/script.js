@@ -1,15 +1,19 @@
-const loadAllPost = async() => {
+const loadAllPosts = async () => {
     const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts')
     const data = await res.json()
-    const post = data;
-    // console.log(post.posts);
-    const postContainer = post.posts;
-    postContainer.forEach(element => {
-        console.log(element);
+    const post = data.posts;
+    // console.log(post);
+    displayPost(post);
+}
 
+const displayPost = posts =>{
+    posts.forEach(element => {
+        // console.log(element);
+       
         const divContainer = document.getElementById('post-container')
-        const titleDiv = document.getElementById('title-container')
+        // const titleDiv = document.getElementById('title-container')
         // divContainer.textContent =''
+       
 
         const div = document.createElement('div');
         div.innerHTML = `
@@ -46,7 +50,7 @@ const loadAllPost = async() => {
                                             <p>${element.posted_time} min</p>
                                         </div>
                                     </div>
-                                    <div id="btn" class="justify-end">
+                                    <div onclick="handleClick('${element.title}', ${element.view_count})" id="btn" class="justify-end">
                                         <img src="./images/email_1.png" alt="" srcset="">
                                     </div>
                                 </div>
@@ -56,26 +60,22 @@ const loadAllPost = async() => {
         
         `
         divContainer.appendChild(div);
-        const btn = div.querySelector('#btn');
-        btn.addEventListener('click', () => {
-           console.log('clicked');
+    });
+}
+function handleClick(postTitle,postView) {
+    console.log(postTitle,postView);
+    const titleDiv = document.getElementById('title-container')
 
-           const title = document.createElement('div');
-        div.innerHTML = `
+    const title = document.createElement('div');
+    title.innerHTML = `
 
-        <h1 class="text-base">${element.title}</h1>
+        <h1 class="text-base">${postTitle}</h1>
                         <div class="flex gap-3 items-center">
                             <i class="fa-regular fa-eye"></i>
-                            <p>${element.view_count}</p>
+                            <p>${postView}</p>
                         </div>
         `
-        titleDiv.appendChild(title);
-        });
-
-
-    });
-
-
+            titleDiv.appendChild(title);
 }
 
 const handleSearch = async () => {
@@ -84,24 +84,20 @@ const handleSearch = async () => {
 
     if (!searchText) return;
 
-    try {
-        const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
-        const data = await res.json();
-        loadAllPost(data); // Display filtered posts
-        console.log(data);
-    } catch (error) {
-        console.error('Error searching posts:', error);
-    }
+    const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
+    const data = await res.json();
+    loadAllPost(data);
+    console.log(data);
 };
 
-const loadLatestPost =async () =>{
+const loadLatestPost = async () => {
     const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts')
     const data = await res.json()
     const post = data;
-    console.log(post);
+    // console.log(post);
 
     post.forEach(posts => {
-        console.log(posts);
+        // console.log(posts);
 
         const divContainer = document.getElementById('Latest-Post-Container')
         // divContainer.textContent =''
@@ -136,6 +132,6 @@ const loadLatestPost =async () =>{
 
 
     })
-} 
-loadAllPost()
+}
+loadAllPosts()
 loadLatestPost()
