@@ -11,6 +11,9 @@ const displayPost = posts =>{
     divContainer.textContent =''
     posts.forEach(element => {
 
+        let newTitle = element.title;
+        let heading = newTitle.replace("'", "")
+        console.log(newTitle);
         const div = document.createElement('div');
         div.innerHTML = `
         <div class="flex gap-3 bg-gray-200 px-4 py-6 rounded-lg mb-4 ">
@@ -42,7 +45,7 @@ const displayPost = posts =>{
                                     <i class="fa-regular fa-clock"></i>
                                     <p class="text-sm">${element.posted_time} min</p>
                                 </div>
-                                <div onclick="handleClick('${element.title}', ${element.view_count})" class="mt-4 text-right">
+                                <div onclick="handleClick('${heading}', '${element.view_count}')" class="mt-4 text-right">
                                 <img class="w-6 h-6" src="./images/email_1.png" alt="">
                             </div>
                             </div>
@@ -56,6 +59,7 @@ const displayPost = posts =>{
 }
 function handleClick(postTitle,postView) {
     console.log(postTitle,postView);
+    // const titles = postTitle.replace(",")
     const titleDiv = document.getElementById('title-container')
 
     const title = document.createElement('div');
@@ -73,23 +77,6 @@ function handleClick(postTitle,postView) {
         titleDiv.appendChild(title);
 }
 
-// const handleSearch = async () => {
-//     const searchField = document.getElementById('searchText');
-//     const searchText = searchField.value.trim().toLowerCase();
-
-//     if (!searchText) return;
-
-//     const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
-//     const data = await res.json();
-//     if(data.length <= 0){
-//         displayPost(data.posts); 
-//     }
-//     else{
-
-//     }
-   
-//     console.log(data);
-// };
 const handleSearch = async () => {
     const searchField = document.getElementById('searchText');
     const searchText = searchField.value.trim().toLowerCase();
@@ -98,7 +85,7 @@ const handleSearch = async () => {
 
     const loaderSpinner = document.getElementById('loader-spinner');
     loaderSpinner.classList.remove('hidden'); // Show loader
-
+    await new Promise(resolve => setTimeout(resolve, 2000));
     try {
         const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
         const data = await res.json();
@@ -109,7 +96,7 @@ const handleSearch = async () => {
             
         }
 
-        console.log(data);
+        // console.log(data);
     } catch (error) {
        
         console.error('Error fetching data:', error);
