@@ -58,6 +58,11 @@ const displayPost = posts =>{
     });
 }
 function handleClick(postTitle,postView) {
+    const countnum = document.getElementById('count');
+    let count = parseInt(countnum.innerText);
+    count++; 
+
+    countnum.innerText = count;
     console.log(postTitle,postView);
     // const titles = postTitle.replace(",")
     const titleDiv = document.getElementById('title-container')
